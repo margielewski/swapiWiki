@@ -1,9 +1,14 @@
 import React from 'react'
 import { StyledBurger } from './style';
 
-export default function HamburgerMenu() {
+type HamburgerMenuProps = {
+    isOpen: boolean
+    toggle: () => void
+};
+
+export default function HamburgerMenu({ isOpen, toggle }: HamburgerMenuProps) {
     return (
-        <StyledBurger isOpen={false}>
+        <StyledBurger onClick={toggle} isOpen={isOpen}>
             <div />
             <div />
             <div />
