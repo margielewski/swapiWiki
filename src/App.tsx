@@ -10,11 +10,9 @@ function App() {
     <div className="App">
       <Nav />
       <Switch>
-        <Route path="/about">
-        </Route>
-        <Route path="/users">
-        </Route>
+
         <Route path="/">
+          <div></div>
         </Route>
       </Switch>
     </div>
