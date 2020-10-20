@@ -5,6 +5,8 @@ interface ITheme {
     colors: {
         primary: string
         secondary: string
+        secondaryLight: string
+        light: string
     }
     fontSizes: {
         small: string
@@ -21,6 +23,8 @@ const theme: ITheme = {
     colors: {
         primary: '#BCAB18',
         secondary: '#000',
+        secondaryLight: '#1F1F1F',
+        light: '#858585'
     },
     fontSizes: {
         small: '1rem',
