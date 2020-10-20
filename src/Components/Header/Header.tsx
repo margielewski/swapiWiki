@@ -1,16 +1,19 @@
 import React from 'react'
 import {
-    StyledImage
+    StyledHeader,
+    StyledImage,
 } from './style'
 
 import logo from '../../assets/starwarslogo.png'
+import HamburgerMenu from '../HamburgerMenu/HamburgerMenu'
 
 export default function Header() {
     return (
-        <header>
+        <StyledHeader>
             <StyledImage>
                 <img src={logo} alt="" />
             </StyledImage>
-        </header>
+            <HamburgerMenu />
+        </StyledHeader>
     )
 }
