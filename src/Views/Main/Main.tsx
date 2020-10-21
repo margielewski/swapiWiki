@@ -42,8 +42,6 @@ export default function Main() {
                     </StyledOption>
                 ))
             }
-
-
         </StyledWrapper>
     )
 }

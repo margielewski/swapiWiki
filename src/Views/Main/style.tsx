@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledWrapper = styled.section`
-    padding-top:7rem;
+    padding-top:5rem;
     display:flex;
     min-height:100vh;
     flex-direction:column;
@@ -19,6 +19,7 @@ export const StyledImage = styled.figure`
 `
 
 export const StyledOption = styled.div`
+    min-width:20vh;
     display:flex;
     flex-direction:column;
     align-items:center;
