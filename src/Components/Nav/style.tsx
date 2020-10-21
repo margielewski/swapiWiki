@@ -13,14 +13,12 @@ export const StyledNav = styled.nav<{ isOpen: boolean }>`
 `
 
 export const StyledList = styled.ul`
-   
+   list-style-type: none;
 `
 
 export const StyledListItem = styled.li`
     text-align:center;
     padding:1.4rem 0;
-    
-    
 `
 
 export const StyledLink = styled(Link)`
