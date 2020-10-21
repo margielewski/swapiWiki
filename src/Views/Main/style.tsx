@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const StyledWrapper = styled.section`
-    padding-top:5rem;
+    padding:5rem 0;
     display:flex;
     min-height:100vh;
     flex-direction:column;
@@ -18,8 +19,9 @@ export const StyledImage = styled.figure`
     }
 `
 
-export const StyledOption = styled.div`
+export const StyledOption = styled(Link)`
     min-width:20vh;
+    text-decoration:none;
     display:flex;
     flex-direction:column;
     align-items:center;
