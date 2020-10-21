@@ -29,5 +29,6 @@ export const StyledOption = styled(Link)`
 
 export const StyledName = styled.span`
     color:${({ theme }) => theme.colors.primary};
-    font-size:${({ theme }) => theme.fontSizes.medium}
+    font-size:${({ theme }) => theme.fontSizes.medium};
+    font-weight:600;
 `

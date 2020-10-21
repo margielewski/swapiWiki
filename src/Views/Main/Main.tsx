@@ -11,24 +11,31 @@ import starshipImg from '../../assets/starshipExample.png'
 import characterImg from '../../assets/characterExample.png'
 import planetImg from '../../assets/planetExample.png'
 
-const mainOptions = [
+interface IMainOptions {
+    label: string
+    img: string
+    alt: string
+    to: string
+}
+
+const mainOptions: IMainOptions[] = [
     {
         label: 'Starships',
         img: starshipImg,
         alt: 'star wars starship',
-        to: ''
+        to: '/starships'
     },
     {
         label: 'Characters',
         img: characterImg,
         alt: 'star wars character',
-        to: ''
+        to: '/characters'
     },
     {
         label: 'Planets',
         img: planetImg,
         alt: 'star wars planet',
-        to: ''
+        to: '/planets'
     },
 ]
 
