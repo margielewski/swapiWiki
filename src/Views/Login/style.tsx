@@ -43,3 +43,10 @@ export const StyledButton = styled.button`
 export const StyledLabel = styled.label`
     color:${({ theme }) => theme.colors.light};
 `
+
+export const StyledInfo = styled.span`
+    color:${({ theme }) => theme.colors.light};
+    text-align:center;
+    display: block;
+    padding:.3rem 0;
+`

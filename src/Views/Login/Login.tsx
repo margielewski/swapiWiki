@@ -1,6 +1,13 @@
 import React from 'react'
 
-import { StyledWrapper, StyledForm, StyledLabel, StyledInput, StyledButton } from './style'
+import {
+    StyledWrapper,
+    StyledForm,
+    StyledLabel,
+    StyledInput,
+    StyledButton,
+    StyledInfo
+} from './style'
 
 export default function Login() {
     return (
@@ -11,6 +18,7 @@ export default function Login() {
                 <StyledLabel htmlFor="password">Password</StyledLabel>
                 <StyledInput id="password" type="password" />
                 <StyledButton>Sign in</StyledButton>
+                <StyledInfo>Need Help?</StyledInfo>
             </StyledForm>
         </StyledWrapper>
     )
