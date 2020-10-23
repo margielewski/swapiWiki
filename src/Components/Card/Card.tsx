@@ -3,7 +3,7 @@ import { StyledWrapper, StyledImg, StyledText, StyledLabel } from './style'
 
 export default function Card({ name, icon }: any) {
     return (
-        <StyledWrapper>
+        <StyledWrapper to={`planets/${name}`}>
             <StyledImg>
                 <img src={icon} alt="planet" />
             </StyledImg>

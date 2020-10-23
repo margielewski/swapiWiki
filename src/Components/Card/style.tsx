@@ -1,12 +1,13 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-export const StyledWrapper = styled.div`
+export const StyledWrapper = styled(Link)`
     display:flex;
     padding:2rem;
     flex-direction:column;
     align-items:center;
     border-bottom:1px solid ${({ theme }) => theme.colors.light};
-    
+    text-decoration:none;
 `
 
 export const StyledImg = styled.figure`
