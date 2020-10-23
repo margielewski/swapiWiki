@@ -1,4 +1,6 @@
 import { Dispatch } from 'redux';
+import axios from 'axios';
+
 import {
     GET_PLANET_DETAILS_REQUESTED,
     GET_PLANET_DETAILS_DONE,
@@ -10,7 +12,6 @@ import {
 } from '../planets.types';
 
 import { GETPlanets } from '../../api/planets'
-import axios from 'axios';
 
 export function getPlanetDetailsRequested(): PlanetDetailsActions {
     return {
