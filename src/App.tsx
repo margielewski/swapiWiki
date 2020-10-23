@@ -13,6 +13,8 @@ import PlanetDetails from './Views/PlanetDetails/PlanetDetails';
 
 
 import Planets from './Views/Planets/Planets';
+import Starships from './Views/Starships/Starships';
+import StarshipDetails from './Views/StarshipsDetails/StarshipsDetails';
 
 function App() {
 
@@ -20,6 +22,12 @@ function App() {
     <div className="App">
       <Nav />
       <Switch>
+        <Route exact path="/starships">
+          <Starships />
+        </Route>
+        <Route path="/starships/:name">
+          <StarshipDetails />
+        </Route>
         <Route exact path="/characters">
           <Characters />
         </Route>

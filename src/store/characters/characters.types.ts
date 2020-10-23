@@ -1,7 +1,7 @@
 import { IVehiclesResponse } from './../../types/vehicle';
-import { IStarshipsResponse } from './../../types/starship';
 import { ISpeciesResponse } from './../../types/specie';
 import { IFilmsResponse } from './../../types/film';
+import { IStarshipsResponse } from '../starships/starships.types';
 export const GET_CHARACTERS_REQUESTED = 'GET_CHARACTERS_REQUESTED';
 export const GET_CHARACTERS_DONE = 'GET_CHARACTERS_DONE';
 export const GET_CHARACTERS_FAILED = 'GET_CHARACTERS_FAILED';

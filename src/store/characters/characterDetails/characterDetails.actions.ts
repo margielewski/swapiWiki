@@ -1,5 +1,4 @@
 import { IVehiclesResponse } from './../../../types/vehicle';
-import { IStarshipsResponse } from './../../../types/starship';
 import { ISpeciesResponse } from './../../../types/specie';
 import { IFilmsResponse } from './../../../types/film';
 import { Dispatch } from 'redux';
@@ -18,6 +17,7 @@ import {
 } from '../characters.types';
 
 import { GETCharacters } from '../../api/characters'
+import { IStarshipsResponse } from '../../starships/starships.types';
 
 export function getCharacterDetailsRequested(): CharacterDetailsActions {
     return {
