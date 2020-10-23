@@ -6,6 +6,13 @@ export const StyledWrapper = styled.section`
     display:flex;
     align-items:center;
     flex-direction:column;
+    @media(min-width:900px){
+        align-items:center;
+    }
+    @media(min-width:1200px){
+        width:1200px;
+        margin:0 auto;
+    }
 `
 
 export const StyledTitle = styled.h2`
@@ -21,6 +28,16 @@ export const StyledLabelDataGroup = styled.div`
    width:100%;
    
 `
+
+export const StyledInfoWrapper = styled.div`
+    @media(min-width:900px){
+        display:flex;
+        width:100%;
+        justify-content:space-around;
+    }
+    
+`
+
 
 export const StyledLabel = styled.span`
     color:${({ theme }) => theme.colors.light};

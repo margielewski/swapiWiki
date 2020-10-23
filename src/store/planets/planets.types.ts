@@ -6,6 +6,9 @@ export const GET_PLANET_DETAILS_REQUESTED = 'GET_PLANET_DETAILS_REQUESTED';
 export const GET_PLANET_DETAILS_DONE = 'GET_PLANET_DETAILS_DONE';
 export const GET_PLANET_DETAILS_FAILED = 'GET_PLANET_DETAILS_FAILED';
 
+export const GET_PLANET_FILMS_DETAILS_DONE = 'GET_PLANET_FILMS_DETAILS_DONE';
+export const GET_PLANET_RESIDENTS_DETAILS_DONE = 'GET_PLANET_RESIDENTS_DETAILS_DONE';
+
 export interface IPlanetsResponse {
     count: number
     next: string
@@ -25,6 +28,8 @@ export interface IPlanetDetailsState {
     data: IPlanet
     loading: boolean
     error: string
+    films?: any
+    residents?: any
 }
 
 export interface IPlanet {
@@ -74,6 +79,23 @@ interface IGetPlanetDetailsFailed {
     payload: string
 }
 
-export type PlanetsActions = IGetPlanetsFailed | IGetPlanetsDone | IGetPlanetsRequested;
+interface IGetPlanetFilmsDetailsDone {
+    type: typeof GET_PLANET_FILMS_DETAILS_DONE
+    payload: string
+}
+interface IGetPlanetResidentsDetailsDone {
+    type: typeof GET_PLANET_RESIDENTS_DETAILS_DONE
+    payload: string
+}
 
-export type PlanetDetailsActions = IGetPlanetDetailsFailed | IGetPlanetDetailsDone | IGetPlanetDetailsRequested;
+export type PlanetsActions =
+    IGetPlanetsFailed |
+    IGetPlanetsDone |
+    IGetPlanetsRequested;
+
+export type PlanetDetailsActions =
+    IGetPlanetDetailsFailed |
+    IGetPlanetDetailsDone |
+    IGetPlanetDetailsRequested |
+    IGetPlanetFilmsDetailsDone |
+    IGetPlanetResidentsDetailsDone

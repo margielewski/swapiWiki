@@ -7,10 +7,19 @@ import { getPlanetDetails } from '../../store/planets/planetDetails/planetDetail
 
 import { RootStore } from '../../store/store';
 
-import { StyledWrapper, StyledLabelDataGroup, StyledSuffix, StyledLabel, StyledTitle, StyledData } from './style'
+import {
+    StyledWrapper,
+    StyledLabelDataGroup,
+    StyledSuffix,
+    StyledLabel,
+    StyledTitle,
+    StyledData,
+    StyledInfoWrapper,
+} from './style'
 
 import { labelsToDisplay } from './labels'
 import Info from '../../Components/Info/Info';
+import DetailsList from '../../Components/DetailsList/DetailsList';
 
 interface IParamTypes {
     name: string
@@ -19,7 +28,7 @@ interface IParamTypes {
 export default function PlanetDetails() {
     const dispatch = useDispatch()
 
-    const { data, loading, error } = useSelector((state: RootStore) => state.planetDetails)
+    const { data, loading, error, films, residents } = useSelector((state: RootStore) => state.planetDetails)
 
     let { name: ParamsName } = useParams<IParamTypes>();
 
@@ -38,15 +47,23 @@ export default function PlanetDetails() {
     return (
         <StyledWrapper>
             <StyledTitle>Planet Details</StyledTitle>
-            {labelsToDisplay.map(({ key, label, suffix }) => (
-                <StyledLabelDataGroup key={key}>
-                    <StyledLabel>{label}:</StyledLabel>
-                    <StyledData>
-                        {data[key]}
-                        <StyledSuffix> {suffix ? suffix : ''}</StyledSuffix>
-                    </StyledData>
-                </StyledLabelDataGroup>
-            ))}
+            <StyledInfoWrapper>
+                <div>
+                    {labelsToDisplay.map(({ key, label, suffix }) => (
+                        <StyledLabelDataGroup key={key}>
+                            <StyledLabel>{label}:</StyledLabel>
+                            <StyledData>
+                                {data[key]}
+                                <StyledSuffix> {suffix && data[key] !== 'unknown' ? suffix : ''}</StyledSuffix>
+                            </StyledData>
+                        </StyledLabelDataGroup>
+                    ))}
+                </div>
+                <div>
+                    <DetailsList title="Films" itemsKey="title" items={films} />
+                    <DetailsList title="Residents" itemsKey="name" items={residents} />
+                </div>
+            </StyledInfoWrapper>
         </StyledWrapper>
     )
 }
