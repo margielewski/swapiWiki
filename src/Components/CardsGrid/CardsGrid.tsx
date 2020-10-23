@@ -16,10 +16,6 @@ export default function CardsGrid({ data, children, nextPage, handleChange, prev
         setDataToDisplay(data)
     }, [data])
 
-
-
-    // if (!dataToDisplay || !dataToDisplay.length) return <div style={{ color: '#fff' }}>No data</div>
-
     return (
         <StyledWrapper>
             <StyledInputWrapper>

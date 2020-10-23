@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyledWrapper, StyledImg, StyledText, StyledLabel } from './style'
 
-export default function Card({ name, icon }: any) {
+export default function Card({ name, icon, routeTo }: any) {
     return (
-        <StyledWrapper to={`planets/${name}`}>
+        <StyledWrapper to={`${routeTo}/${name}`}>
             <StyledImg>
                 <img src={icon} alt="planet" />
             </StyledImg>

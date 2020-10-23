@@ -5,6 +5,8 @@ import {
 } from "react-router-dom";
 
 import Nav from './Components/Header/Header';
+import CharacterDetails from './Views/CharacterDetails/CharacterDetails';
+import Characters from './Views/Characters/Characters';
 import Login from './Views/Login/Login';
 import Main from './Views/Main/Main';
 import PlanetDetails from './Views/PlanetDetails/PlanetDetails';
@@ -18,6 +20,12 @@ function App() {
     <div className="App">
       <Nav />
       <Switch>
+        <Route exact path="/characters">
+          <Characters />
+        </Route>
+        <Route path="/characters/:name">
+          <CharacterDetails />
+        </Route>
         <Route exact path="/planets">
           <Planets />
         </Route>

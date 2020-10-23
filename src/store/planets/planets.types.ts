@@ -1,3 +1,5 @@
+import { ICharacter, ICharactersResponse } from './../characters/characters.types';
+import { IFilm, IFilmsResponse } from './../../types/film';
 export const GET_PLANETS_REQUESTED = 'GET_PLANETS_REQUESTED';
 export const GET_PLANETS_DONE = 'GET_PLANETS_DONE';
 export const GET_PLANETS_FAILED = 'GET_PLANETS_FAILED';
@@ -28,8 +30,8 @@ export interface IPlanetDetailsState {
     data: IPlanet
     loading: boolean
     error: string
-    films?: any
-    residents?: any
+    films: IFilm[]
+    residents: ICharacter[]
 }
 
 export interface IPlanet {
@@ -81,11 +83,11 @@ interface IGetPlanetDetailsFailed {
 
 interface IGetPlanetFilmsDetailsDone {
     type: typeof GET_PLANET_FILMS_DETAILS_DONE
-    payload: string
+    payload: IFilmsResponse
 }
 interface IGetPlanetResidentsDetailsDone {
     type: typeof GET_PLANET_RESIDENTS_DETAILS_DONE
-    payload: string
+    payload: ICharactersResponse
 }
 
 export type PlanetsActions =

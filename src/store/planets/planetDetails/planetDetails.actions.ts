@@ -1,3 +1,5 @@
+import { ICharactersResponse } from './../../characters/characters.types';
+import { IFilmsResponse } from './../../../types/film';
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
@@ -33,14 +35,14 @@ export function getPlanetDetailsFailed(error: string): PlanetDetailsActions {
     };
 }
 
-export function getPlanetFilmsDetailsDone(data: any): PlanetDetailsActions {
+export function getPlanetFilmsDetailsDone(data: IFilmsResponse): PlanetDetailsActions {
     return {
         type: GET_PLANET_FILMS_DETAILS_DONE,
         payload: data
     };
 }
 
-export function getResidentsDetailsDone(data: any): PlanetDetailsActions {
+export function getResidentsDetailsDone(data: ICharactersResponse): PlanetDetailsActions {
     return {
         type: GET_PLANET_RESIDENTS_DETAILS_DONE,
         payload: data
@@ -56,11 +58,11 @@ export function getPlanetDetails(postfix = '') {
                 if (data.results && data.results.length !== 1) data.results = [];
                 if (data.results[0] && data.results[0].films.length) {
                     const films = data.results[0].films;
-                    films.map((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+                    films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
                 }
                 if (data.results[0] && data.results[0].residents.length) {
                     const residents = data.results[0].residents;
-                    residents.map((resident: string) => { dispatch<any>(getResidentsDetails(resident)) })
+                    residents.forEach((resident: string) => { dispatch<any>(getResidentsDetails(resident)) })
                 }
                 dispatch(getPlanetDetailsDone(data))
 

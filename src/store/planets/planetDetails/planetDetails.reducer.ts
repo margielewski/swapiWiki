@@ -11,7 +11,7 @@ import {
 
 const initialState: IPlanetDetailsState = {
     loading: false,
-    data: <IPlanet>{},
+    data: {} as IPlanet,
     error: '',
     films: [],
     residents: []
@@ -38,8 +38,10 @@ export default (state = initialState, { type, payload }: PlanetDetailsActions): 
         case GET_PLANET_DETAILS_FAILED:
             return {
                 loading: false,
-                data: <IPlanet>{},
-                error: payload
+                data: {} as IPlanet,
+                error: payload,
+                films: [],
+                residents: []
             }
         case GET_PLANET_FILMS_DETAILS_DONE:
             return {

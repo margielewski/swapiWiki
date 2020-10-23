@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 
-import { getPlanetDetails } from '../../store/planets/planetDetails/planetDetails.actions';
+import { getCharacterDetails } from '../../store/characters/characterDetails/characterDetails.actions';
 
 import { RootStore } from '../../store/store';
 
@@ -25,20 +25,20 @@ interface IParamTypes {
     name: string
 }
 
-export default function PlanetDetails() {
+export default function CharacterDetails() {
     const dispatch = useDispatch()
 
-    const { data, loading, error, films, residents } = useSelector((state: RootStore) => state.planetDetails)
+    const { data, loading, error, films, species, vehicles, starships } = useSelector((state: RootStore) => state.characterDetails)
 
     let { name: paramsName } = useParams<IParamTypes>();
 
     useEffect(() => {
-        getPlanetsData(paramsName)
+        getCharactersData(paramsName)
     }, [paramsName])
 
-    const getPlanetsData = (name: string) => {
+    const getCharactersData = (name: string) => {
         const postfix = `?search=${name}`
-        dispatch(getPlanetDetails(postfix))
+        dispatch(getCharacterDetails(postfix))
     }
     //TODO
     if (loading) return <LoadingSpinner />
@@ -46,7 +46,7 @@ export default function PlanetDetails() {
 
     return (
         <StyledWrapper>
-            <StyledTitle>Planet Details</StyledTitle>
+            <StyledTitle>Character Details</StyledTitle>
             <StyledInfoWrapper>
                 <div>
                     {labelsToDisplay.map(({ key, label, suffix }) => (
@@ -61,7 +61,9 @@ export default function PlanetDetails() {
                 </div>
                 <div>
                     <DetailsList title="Films" itemsKey="title" items={films} />
-                    <DetailsList title="Residents" itemsKey="name" items={residents} />
+                    <DetailsList title="Species" itemsKey="name" items={species} />
+                    <DetailsList title="Vehicles" itemsKey="name" items={vehicles} />
+                    <DetailsList title="Starships" itemsKey="name" items={starships} />
                 </div>
             </StyledInfoWrapper>
         </StyledWrapper>
