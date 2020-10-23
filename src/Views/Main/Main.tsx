@@ -20,10 +20,10 @@ interface IMainOptions {
 
 const mainOptions: IMainOptions[] = [
     {
-        label: 'Starships',
-        img: starshipImg,
-        alt: 'star wars starship',
-        to: '/starships'
+        label: 'Planets',
+        img: planetImg,
+        alt: 'star wars planet',
+        to: '/planets'
     },
     {
         label: 'Characters',
@@ -32,10 +32,10 @@ const mainOptions: IMainOptions[] = [
         to: '/characters'
     },
     {
-        label: 'Planets',
-        img: planetImg,
-        alt: 'star wars planet',
-        to: '/planets'
+        label: 'Starships',
+        img: starshipImg,
+        alt: 'star wars starship',
+        to: '/starships'
     },
 ]
 
