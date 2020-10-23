@@ -34,8 +34,10 @@ export function getPlanetDetails(postfix = '') {
         dispatch(getPlanetDetailsRequested())
         GETPlanets(postfix)
             .then(r => {
-                const planet = r.data;
-                dispatch(getPlanetDetailsDone(planet))
+                const data = r.data;
+                if (data.results && data.results.length === 1) dispatch(getPlanetDetailsDone(data))
+                else data.results = [];
+                dispatch(getPlanetDetailsDone(data))
             }).catch(err => {
                 const errorMsg = err.message;
                 dispatch(getPlanetDetailsFailed(errorMsg))

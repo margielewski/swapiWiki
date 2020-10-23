@@ -10,6 +10,7 @@ import { RootStore } from '../../store/store';
 import { StyledWrapper, StyledLabelDataGroup, StyledSuffix, StyledLabel, StyledTitle, StyledData } from './style'
 
 import { labelsToDisplay } from './labels'
+import Info from '../../Components/Info/Info';
 
 interface IParamTypes {
     name: string
@@ -31,7 +32,8 @@ export default function PlanetDetails() {
         dispatch(getPlanetDetails(postfix))
     }
     //TODO
-    if (loading || !data) return <LoadingSpinner />
+    if (loading) return <LoadingSpinner />
+    if (!data) return <Info text="No data found" />
 
     return (
         <StyledWrapper>
