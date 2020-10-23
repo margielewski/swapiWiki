@@ -17,7 +17,7 @@ export default function Header() {
 
     return (
         <StyledHeader>
-            <StyledImage>
+            <StyledImage to="/">
                 <img src={logo} alt="Star Wars" />
             </StyledImage>
             <HamburgerMenu toggle={toggle} isOpen={isOpen} />

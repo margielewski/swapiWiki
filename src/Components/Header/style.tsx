@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Link } from 'react-router-dom'
+
 export const StyledHeader = styled.header`
     width:100%;
     display:flex;
@@ -8,12 +10,12 @@ export const StyledHeader = styled.header`
     position:fixed;
     top:0;
     left:0;
-    background:linear-gradient(rgba(0, 0, 0, 0.61),rgba(0, 0, 0, 0.32));
+    background:linear-gradient(rgba(0, 0, 0, 0.71),rgba(0, 0, 0, 0.62));
     box-shadow:0px 5px 10px 0px rgba(255, 255, 255, 0.32); 
     z-index:10;
 `
 
-export const StyledImage = styled.figure`
+export const StyledImage = styled(Link)`
     width:6rem;
     img{
         width:100%;
