@@ -1,12 +1,12 @@
 import { IPlanet } from "../../store/planets/planets.types";
 
-interface ILabelsToDisplay {
+export interface IPlanetLabelsToDisplay {
     label: string,
     key: keyof IPlanet
     suffix?: string
 }
 
-export const labelsToDisplay: ILabelsToDisplay[] = [
+export const labelsToDisplay: IPlanetLabelsToDisplay[] = [
     {
         label: 'Name',
         key: 'name',

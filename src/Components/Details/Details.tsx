@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { ReactNode, useEffect } from 'react'
+
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import Info from '../Info/Info';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
@@ -18,7 +20,7 @@ interface IParamTypes {
     name: string
 }
 
-export default function Details({ loading, labelsToDisplay, data, children, action, error }: any) {
+export default function Details({ loading, labelsToDisplay, data, children, action, error, title }: any) {
     const dispatch = useDispatch()
     let { name: paramsName } = useParams<IParamTypes>();
 
@@ -37,7 +39,7 @@ export default function Details({ loading, labelsToDisplay, data, children, acti
 
     return (
         <StyledWrapper>
-            <StyledTitle>Character Details</StyledTitle>
+            <StyledTitle>{title}</StyledTitle>
             <StyledInfoWrapper>
                 <div>
                     {labelsToDisplay.map(({ key, label, suffix }: any) => (

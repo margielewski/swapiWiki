@@ -13,13 +13,10 @@ import { labelsToDisplay } from './labels'
 
 export default function CharacterDetails() {
 
-
     const { data, loading, error, films, starships, vehicles, species } = useSelector((state: RootStore) => state.characterDetails)
 
-
-
     return (
-        <Details action={getCharacterDetails} error={error} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
+        <Details title="Character Details" action={getCharacterDetails} error={error} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
             <DetailsList title="Films" itemsKey="title" items={films} />
             <DetailsList title="Starships" itemsKey="name" items={starships} />
             <DetailsList title="Vehicles" itemsKey="name" items={vehicles} />

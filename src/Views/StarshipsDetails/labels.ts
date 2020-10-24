@@ -1,12 +1,12 @@
 import { IStarship } from './../../store/starships/starships.types';
 
-interface ILabelsToDisplay {
+export interface IStarshipLabelsToDisplay {
     label: string,
     key: keyof IStarship
     suffix?: string
 }
 
-export const labelsToDisplay: ILabelsToDisplay[] = [
+export const labelsToDisplay: IStarshipLabelsToDisplay[] = [
     {
         label: 'Name',
         key: 'name',

@@ -1,12 +1,12 @@
 import { ICharacter } from "../../store/characters/characters.types";
 
-interface ILabelsToDisplay {
+export interface ICharacterLabelsToDisplay {
     label: string,
     key: keyof ICharacter
     suffix?: string
 }
 
-export const labelsToDisplay: ILabelsToDisplay[] = [
+export const labelsToDisplay: ICharacterLabelsToDisplay[] = [
     {
         label: 'Name',
         key: 'name',
