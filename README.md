@@ -6,14 +6,14 @@ In the project directory, you can run:
 
 ### `npm start`
 
-![Screenshot](mobile1.png)
+![Screenshot](readmeassets/mobile1.png)
 
-![Screenshot](mobile2.png)
+![Screenshot](readmeassets/mobile2.png)
 
-![Screenshot](mobile3.png)
+![Screenshot](readmeassets/mobile3.png)
 
-![Screenshot](desktop1.png)
+![Screenshot](readmeassets/desktop1.png)
 
-![Screenshot](desktop2.png)
+![Screenshot](readmeassets/desktop2.png)
 
-![Screenshot](desktop3.png)
+![Screenshot](readmeassets/desktop3.png)
