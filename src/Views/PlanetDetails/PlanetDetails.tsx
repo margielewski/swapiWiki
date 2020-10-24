@@ -18,7 +18,7 @@ export default function PlanetDetails() {
 
 
     return (
-        <Details action={getPlanetDetails} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
+        <Details action={getPlanetDetails} error={error} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
             <DetailsList title="Films" itemsKey="title" items={films} />
             <DetailsList title="Residents" itemsKey="name" items={residents} />
         </Details>

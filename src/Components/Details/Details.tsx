@@ -18,7 +18,7 @@ interface IParamTypes {
     name: string
 }
 
-export default function Details({ loading, labelsToDisplay, data, children, action }: any) {
+export default function Details({ loading, labelsToDisplay, data, children, action, error }: any) {
     const dispatch = useDispatch()
     let { name: paramsName } = useParams<IParamTypes>();
 
@@ -33,6 +33,7 @@ export default function Details({ loading, labelsToDisplay, data, children, acti
 
     if (loading) return <LoadingSpinner />
     if (!data) return <Info text="No data found" />
+    if (error) return <Info text={error} />
 
     return (
         <StyledWrapper>

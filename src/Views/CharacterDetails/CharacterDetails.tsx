@@ -19,7 +19,7 @@ export default function CharacterDetails() {
 
 
     return (
-        <Details action={getCharacterDetails} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
+        <Details action={getCharacterDetails} error={error} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
             <DetailsList title="Films" itemsKey="title" items={films} />
             <DetailsList title="Starships" itemsKey="name" items={starships} />
             <DetailsList title="Vehicles" itemsKey="name" items={vehicles} />

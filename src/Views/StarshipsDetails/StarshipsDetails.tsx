@@ -19,7 +19,7 @@ export default function StarshipDetails() {
 
 
     return (
-        <Details action={getStarshipDetails} data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
+        <Details action={getStarshipDetails} error={error}  data={data} loading={loading} labelsToDisplay={labelsToDisplay}>
             <DetailsList title="Films" itemsKey="title" items={films} />
             <DetailsList title="Pilots" itemsKey="name" items={pilots} />
         </Details>
