@@ -1,8 +1,6 @@
 {
   "name": "devanddeliver",
   "version": "0.1.0",
-  "homepage": "https://margielewski.github.io/swapiWiki",
-  "url": "https://margielewski.github.io/swapiWiki",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
