@@ -1,10 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/auth/auth.actions';
 
 import {
     StyledNav,
     StyledList,
     StyledListItem,
-    StyledLink
+    StyledLink,
+    StyledAction,
+    StyledDecorator
 } from './style'
 
 type NavProps = {
@@ -33,6 +37,13 @@ const navItems: INavItem[] = [
 ]
 
 export default function Nav({ toggle, isOpen }: NavProps) {
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        toggle()
+        dispatch(logout())
+    }
+
     return (
         <StyledNav isOpen={isOpen}>
             <StyledList>
@@ -43,7 +54,15 @@ export default function Nav({ toggle, isOpen }: NavProps) {
                         </StyledListItem>
                     ))
                 }
+                <StyledListItem>
+                    <StyledDecorator>----</StyledDecorator>
+                </StyledListItem>
+                <StyledListItem style={{ color: '#fff' }} onClick={handleClick}>
+                    <StyledAction>
+                       Logout
+                   </StyledAction>
+                </StyledListItem>
             </StyledList>
-        </StyledNav>
+        </StyledNav >
     )
 }

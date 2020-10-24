@@ -16,7 +16,10 @@ export const StyledBurger = styled.button<{ isOpen: boolean }>`
   padding: 0;
   z-index: 10;
   outline: none;
+  @media(min-width:1200px){
+        display:none;
 
+    }
   div {
     width: 2rem;
     height: 0.11rem;

@@ -9,6 +9,8 @@ import characterDetailsReducer from './characters/characterDetails/characterDeta
 import starshipsReducer from './starships/starshipsList/starships.reducer';
 import starshipDetailsReducer from './starships/starshipDetails/starshipDetails.reducer';
 
+import authReducer from './auth/auth.reducer';
+
 
 const rootReducer = combineReducers({
     planets: planetsReducer,
@@ -16,7 +18,8 @@ const rootReducer = combineReducers({
     characters: charactersReducer,
     characterDetails: characterDetailsReducer,
     starships: starshipsReducer,
-    starshipDetails: starshipDetailsReducer
+    starshipDetails: starshipDetailsReducer,
+    auth: authReducer
 });
 
 export default rootReducer;

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledWrapper = styled.section`
-    padding-top:5rem;
+    padding-top:7rem;
     display:flex;
     flex-direction:column;
     @media(min-width:900px){

@@ -12,6 +12,10 @@ export const StyledForm = styled.form`
     flex-direction:column;
     background:${({ theme }) => `${theme.colors.secondaryLight}F2`};
     padding:1rem;
+    @media(min-width:550px){
+        width:500px;
+        margin:0 auto;
+    }
 `
 
 export const StyledInput = styled.input`
@@ -46,6 +50,13 @@ export const StyledLabel = styled.label`
 
 export const StyledInfo = styled.span`
     color:${({ theme }) => theme.colors.light};
+    text-align:center;
+    display: block;
+    padding:.3rem 0;
+`
+
+export const StyledError = styled.span`
+    color:red;
     text-align:center;
     display: block;
     padding:.3rem 0;

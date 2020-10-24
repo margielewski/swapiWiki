@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledWrapper = styled.section`
     padding:1rem;
-    padding-top:5rem;
+    padding-top:7rem;
     display:flex;
     align-items:center;
     flex-direction:column;
