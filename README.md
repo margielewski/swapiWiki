@@ -6,6 +6,8 @@ In the project directory, you can run:
 
 ### `npm start`
 
+## Screenshots
+
 ![Screenshot](readmeassets/mobile1.png)
 
 ![Screenshot](readmeassets/mobile2.png)
