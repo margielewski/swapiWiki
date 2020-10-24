@@ -1,7 +1,6 @@
 {
   "name": "devanddeliver",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://margielewski.github.io/swapiWiki",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
