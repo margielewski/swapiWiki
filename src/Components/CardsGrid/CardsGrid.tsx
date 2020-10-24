@@ -6,8 +6,6 @@ import { StyledWrapper, StyledPagination, StyledInputWrapper, StyledCardsContain
 
 import searchIcon from '../../assets/searchIcon.svg'
 
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
-
 import Info from '../Info/Info';
 
 export default function CardsGrid({ data, children, nextPage, handleChange, prevPage, currentPage }: any) {
