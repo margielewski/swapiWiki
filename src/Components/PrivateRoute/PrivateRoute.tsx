@@ -1,9 +1,12 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom';
 
-export default function PrivateRoute({ component: Component, auth, ...children }: any) {
+export default function PrivateRoute({ children, auth, ...rest }: any) {
+    console.log(rest);
     if (auth.loggedIn === true) {
-        return <Route {...children} />;
+        return <Route {...rest} >
+            {children}
+        </Route>;
     }
     return <Redirect to="/login" />;
 }
