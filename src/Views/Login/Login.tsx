@@ -26,16 +26,18 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
+    const dispatch = useDispatch()
+
     const { error } = useSelector((state: RootStore) => state.auth)
 
     const { register, handleSubmit, errors } = useForm<ICredentials>({
         resolver: yupResolver(schema)
     });
+
     const onSubmit = (data: ICredentials) => {
         dispatch(login(data))
     }
-    const dispatch = useDispatch() //dispatch(login('MYSUPERTOKEN'))
-    console.log(errors);
+
     return (
         <StyledWrapper>
             <StyledForm onSubmit={handleSubmit(onSubmit)}>

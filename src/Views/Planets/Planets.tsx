@@ -10,7 +10,6 @@ import icon from '../../assets/planetIcon.svg'
 
 export default function Planets() {
     const planets = useSelector((state: RootStore) => state.planets)
-    console.log(planets);
     return (
         <GridWithPagination routeTo="planets" icon={icon} action={getPlanets} data={planets} />
     )
