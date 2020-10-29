@@ -1,15 +1,30 @@
-import { AuthActions, LOG_IN, LOG_OUT } from './auth.types';
+import { AuthActions, LOG_IN, LOG_OUT, LOG_IN_ERROR, LOG_IN_SUCCESS, ICredentials } from './auth.types';
 
-export function login(token: string): AuthActions {
+export function login(credentials: ICredentials): AuthActions {
     return {
         type: LOG_IN,
-        payload: token
+        payload: credentials
     };
 }
 
 export function logout(): AuthActions {
     return {
-        type: LOG_OUT
+        type: LOG_OUT,
+        payload: ''
+    };
+}
+
+export function loginSuccess(token: string): AuthActions {
+    return {
+        type: LOG_IN_SUCCESS,
+        payload: token
+    };
+}
+
+export function loginError(error: string): AuthActions {
+    return {
+        type: LOG_IN_ERROR,
+        payload: error
     };
 }
 

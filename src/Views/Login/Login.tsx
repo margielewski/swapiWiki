@@ -1,5 +1,10 @@
-import React, { MouseEvent, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+import * as yup from "yup";
+
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
     StyledWrapper,
@@ -12,43 +17,44 @@ import {
 } from './style'
 
 import { login } from '../../store/auth/auth.actions'
+import { RootStore } from '../../store/store';
+import { ICredentials } from '../../store/auth/auth.types';
+
+const schema = yup.object().shape({
+    email: yup.string().email().required("Email is required"),
+    password: yup.string().required("Password is required"),
+});
 
 export default function Login() {
-    const dispatch = useDispatch()
-    const [error, setError] = useState(false)
-    const loginInput = useRef<HTMLInputElement>(null);
-    const passwordInput = useRef<HTMLInputElement>(null);
+    const { error } = useSelector((state: RootStore) => state.auth)
 
-    const handleLogin = (e: MouseEvent) => {
-        e.preventDefault()
-        if (!loginInput || !loginInput.current || !passwordInput || !passwordInput.current) return;
-        if (
-            loginInput.current.value &&
-            passwordInput.current.value &&
-            loginInput.current.value === 'test' &&
-            passwordInput.current.value === 'test123'
-        ) {
-            setError(false)
-            dispatch(login('MYSUPERTOKEN'))
-        }
-        setError(true)
+    const { register, handleSubmit, errors } = useForm<ICredentials>({
+        resolver: yupResolver(schema)
+    });
+    const onSubmit = (data: ICredentials) => {
+        dispatch(login(data))
     }
-
+    const dispatch = useDispatch() //dispatch(login('MYSUPERTOKEN'))
+    console.log(errors);
     return (
         <StyledWrapper>
-            <StyledForm>
+            <StyledForm onSubmit={handleSubmit(onSubmit)}>
 
                 <StyledLabel htmlFor="email">Email</StyledLabel>
-                <StyledInput ref={loginInput} id="email" type="text" />
+                <StyledInput name="email" ref={register} id="email" type="text" />
 
                 <StyledLabel htmlFor="password">Password</StyledLabel>
-                <StyledInput ref={passwordInput} id="password" type="password" />
+                <StyledInput name="password" ref={register} id="password" type="password" />
 
-                <StyledButton onClick={(e: MouseEvent) => handleLogin(e)}>Sign in</StyledButton>
+                <StyledButton type="submit">Sign in</StyledButton>
 
-                {error ? <StyledError>Invalid credentials</StyledError> : null}
+                <StyledError>
+                    <p>{errors.email?.message}</p>
+                    <p>{errors.password?.message}</p>
+                    <p>{error}</p>
+                </StyledError>
 
-                <StyledInfo>login: test</StyledInfo>
+                <StyledInfo>login: test@test.pl</StyledInfo>
                 <StyledInfo>password: test123</StyledInfo>
             </StyledForm>
         </StyledWrapper>
