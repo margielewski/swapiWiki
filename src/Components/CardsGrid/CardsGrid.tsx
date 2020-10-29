@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactNode, ChangeEvent } from 'react'
 
 import { DebounceInput } from 'react-debounce-input';
 
@@ -7,9 +7,19 @@ import { StyledWrapper, StyledPagination, StyledInputWrapper, StyledCardsContain
 import searchIcon from '../../assets/searchIcon.svg'
 
 import Info from '../Info/Info';
-
-export default function CardsGrid({ data, children, nextPage, handleChange, prevPage, currentPage }: any) {
-    const [dataToDisplay, setDataToDisplay] = useState([])
+import { IPlanet } from '../../store/planets/planets.types';
+import { ICharacter } from '../../store/characters/characters.types';
+import { IStarship } from '../../store/starships/starships.types';
+interface ICardsGrid {
+    data: IPlanet[] | ICharacter[] | IStarship[]
+    children(data: IPlanet | ICharacter | IStarship): ReactNode
+    nextPage: () => void
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+    prevPage: () => void
+    currentPage: number
+}
+export default function CardsGrid({ data, children, nextPage, handleChange, prevPage, currentPage }: ICardsGrid) {
+    const [dataToDisplay, setDataToDisplay] = useState<(IPlanet | ICharacter | IStarship)[]>([])
     useEffect(() => {
         setDataToDisplay(data)
     }, [data])
@@ -18,7 +28,7 @@ export default function CardsGrid({ data, children, nextPage, handleChange, prev
         <StyledWrapper>
             <StyledInputWrapper>
                 <label htmlFor="search">search</label>
-                <DebounceInput debounceTimeout={500} type="text" id="search" onChange={(e) => handleChange(e)} />
+                <DebounceInput debounceTimeout={500} type="text" id="search" onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)} />
                 <figure>
                     <img src={searchIcon} alt="" />
                 </figure>
@@ -26,7 +36,7 @@ export default function CardsGrid({ data, children, nextPage, handleChange, prev
             <StyledCardsContainer>
                 {
                     dataToDisplay && dataToDisplay.length ?
-                        dataToDisplay.map((data: any) => {
+                        dataToDisplay.map((data: IPlanet | ICharacter | IStarship) => {
                             return children(data)
                         }) :
                         <Info text="no data" />

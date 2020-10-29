@@ -1,7 +1,13 @@
 import React from 'react'
 import { StyledWrapper, StyledImg, StyledText, StyledLabel } from './style'
 
-export default function Card({ name, icon, routeTo }: any) {
+interface ICardProps {
+    name: string
+    icon: string
+    routeTo: string
+}
+
+export default function Card({ name, icon, routeTo }: ICardProps) {
     return (
         <StyledWrapper to={`${routeTo}/${name}`}>
             <StyledImg>

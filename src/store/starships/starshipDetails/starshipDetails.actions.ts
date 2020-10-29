@@ -56,7 +56,7 @@ export function getStarshipDetails(postfix = '') {
     return (dispatch: Dispatch) => {
         dispatch(getStarshipDetailsRequested())
         GETStarships(postfix)
-            .then(r => {
+            .then((r) => {
                 const data = r.data;
                 if (data.results && data.results.length !== 1) data.results = [];
                 if (data.results[0] && data.results[0].films.length) {

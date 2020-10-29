@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 
 import CardsGrid from '../CardsGrid/CardsGrid';
 import Card from '../Card/Card';
+import { IPlanetsState } from '../../store/planets/planets.types';
+import { ICharactersState } from '../../store/characters/characters.types';
+import { IStarshipsState } from '../../store/starships/starships.types';
 
-export default function GridWithPagination({ icon, action, data, routeTo }: any) {
+interface IGridWithPagination {
+    data: IPlanetsState | ICharactersState | IStarshipsState
+    icon: string
+    action: any
+    routeTo: string
+}
+
+export default function GridWithPagination({ icon, action, data, routeTo }: IGridWithPagination) {
     const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1)
     const [searchString, setSearchString] = useState('')
@@ -40,7 +50,7 @@ export default function GridWithPagination({ icon, action, data, routeTo }: any)
         })
     }
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setCurrentPage(1)
         setSearchString(e.target.value)
     }
@@ -53,7 +63,7 @@ export default function GridWithPagination({ icon, action, data, routeTo }: any)
             currentPage={currentPage}
             data={data.data}
         >
-            {(props: any) => (
+            {(props) => (
                 <Card routeTo={routeTo} key={props.name} icon={icon} {...props} />
             )}
         </CardsGrid>
