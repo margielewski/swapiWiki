@@ -14,7 +14,7 @@ type ActionErrorType = (message: string) => CharacterDetailsActions | PlanetDeta
 export function getDetails<T>(url: string, successAction: ActionSuccessType<T>, errorAction: ActionErrorType) {
     return async (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         try {
-            const response = await axios.get(url)
+            const response = await axios.get<T>(url)
             const { data } = response;
 
             return dispatch(successAction(data))
