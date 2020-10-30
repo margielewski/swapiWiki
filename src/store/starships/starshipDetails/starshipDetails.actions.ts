@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
-import { Action, Dispatch } from 'redux';
+import { Action } from 'redux';
 
 import {
     GET_STARSHIP_DETAILS_REQUESTED,
@@ -20,6 +19,7 @@ import { GETStarships } from '../../api/starships'
 import { ICharacter } from './../../characters/characters.types';
 
 import { IFilm } from '../../../types/film';
+import { getDetails } from '../../helpers/getDetails';
 
 export function getStarshipDetailsRequested(): StarshipDetailsActions {
     return {
@@ -58,50 +58,26 @@ export function getPilotsDetailsDone(data: ICharacter[]): StarshipDetailsActions
 
 
 export function getStarshipDetails(postfix = '') {
-    return (dispatch: ThunkDispatch<RootStore, void, Action>) => {
+    return async (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         dispatch(getStarshipDetailsRequested())
-        GETStarships(postfix)
-            .then(r => {
-                const { data } = r;
 
-                const [{ films }] = data.results;
-                films.forEach((film: string) => { dispatch(getFilmsDetails(film)) })
+        try {
+            const response = await GETStarships(postfix)
+            const { data } = response;
 
-                const [{ pilots }] = data.results;
-                pilots.forEach((pilot: string) => { dispatch(getPilotsDetails(pilot)) })
+            const [{ films }] = data.results;
+            films.forEach((film: string) => { dispatch(getDetails(film, getStarshipFilmsDetailsDone, getStarshipDetailsFailed)) })
 
-                dispatch(getStarshipDetailsDone(data))
+            const [{ pilots }] = data.results;
+            pilots.forEach((pilot: string) => { dispatch(getDetails(pilot, getPilotsDetailsDone, getStarshipDetailsFailed)) })
 
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getStarshipDetailsFailed(errorMsg))
-            })
+            return dispatch(getStarshipDetailsDone(data))
+        } catch (error) {
+            const { message } = error;
+
+            return dispatch(getStarshipDetailsFailed(message))
+        }
     }
 }
 
-function getFilmsDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getStarshipFilmsDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getStarshipDetailsFailed(errorMsg))
-            })
-    }
-}
-
-function getPilotsDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getPilotsDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getStarshipDetailsFailed(errorMsg))
-            })
-    }
-}
 

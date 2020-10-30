@@ -30,15 +30,17 @@ export function getPlanetsFailed(error: string): PlanetsActions {
 }
 
 export function getPlanets(postfix = '') {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
+
         dispatch(getPlanetsRequested())
-        GETPlanets(postfix)
-            .then(r => {
-                const planets = r.data;
-                dispatch(getPlanetsDone(planets))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getPlanetsFailed(errorMsg))
-            })
+
+        try {
+            const response = await GETPlanets(postfix)
+            const { data } = response;
+            return dispatch(getPlanetsDone(data))
+        } catch (error) {
+            const { message } = error;
+            return dispatch(getPlanetsFailed(message))
+        }
     }
 }

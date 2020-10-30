@@ -30,15 +30,19 @@ export function getCharactersFailed(error: string): CharactersActions {
 }
 
 export function getCharacters(postfix = '') {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(getCharactersRequested())
-        GETCharacters(postfix)
-            .then(r => {
-                const characters = r.data;
-                dispatch(getCharactersDone(characters))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getCharactersFailed(errorMsg))
-            })
+
+        try {
+            const response = await GETCharacters(postfix)
+            const { data } = response;
+
+            return dispatch(getCharactersDone(data))
+        } catch (error) {
+            const { message } = error;
+
+            return dispatch(getCharactersFailed(message))
+        }
+
     }
 }

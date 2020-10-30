@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { Action, Dispatch } from 'redux';
+import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import {
@@ -18,6 +17,7 @@ import { ICharacter } from './../../characters/characters.types';
 import { IFilm } from './../../../types/film';
 
 import { GETPlanets } from '../../api/planets'
+import { getDetails } from '../../helpers/getDetails';
 
 export function getPlanetDetailsRequested(): PlanetDetailsActions {
     return {
@@ -54,51 +54,26 @@ export function getResidentsDetailsDone(data: ICharacter[]): PlanetDetailsAction
 }
 
 export function getPlanetDetails(postfix = '') {
-    return (dispatch: ThunkDispatch<RootStore, void, Action>) => {
+    return async (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         dispatch(getPlanetDetailsRequested())
-        GETPlanets(postfix)
-            .then(r => {
-                const { data } = r;
 
+        try {
+            const response = await GETPlanets(postfix)
+            const { data } = response;
 
-                const [{ films }] = data.results;
-                films.forEach((film: string) => { dispatch(getFilmsDetails(film)) })
+            const [{ films }] = data.results;
+            films.forEach((film: string) => { dispatch(getDetails(film, getPlanetFilmsDetailsDone, getPlanetDetailsFailed)) })
 
-                const [{ residents }] = data.results;
-                residents.forEach((resident: string) => { dispatch(getResidentsDetails(resident)) })
+            const [{ residents }] = data.results;
+            residents.forEach((resident: string) => { dispatch(getDetails(resident, getResidentsDetailsDone, getPlanetDetailsFailed)) })
 
-                dispatch(getPlanetDetailsDone(data))
+            return dispatch(getPlanetDetailsDone(data))
+        } catch (error) {
+            const { message } = error;
 
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getPlanetDetailsFailed(errorMsg))
-            })
+            return dispatch(getPlanetDetailsFailed(message))
+        }
+
     }
 }
 
-function getFilmsDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                console.log(data)
-                dispatch(getPlanetFilmsDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getPlanetDetailsFailed(errorMsg))
-            })
-    }
-}
-
-function getResidentsDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getResidentsDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getPlanetDetailsFailed(errorMsg))
-            })
-    }
-}

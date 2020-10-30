@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { Action, Dispatch } from 'redux';
+import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import {
@@ -22,6 +21,7 @@ import { IStarship } from '../../starships/starships.types';
 import { IVehicle } from './../../../types/vehicle';
 import { ISpecie } from './../../../types/specie';
 import { IFilm } from './../../../types/film';
+import { getDetails } from '../../helpers/getDetails';
 
 
 export function getCharacterDetailsRequested(): CharacterDetailsActions {
@@ -73,79 +73,28 @@ export function getVehiclesDetailsDone(data: IVehicle[]): CharacterDetailsAction
 export function getCharacterDetails(postfix = '') {
     return async (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         dispatch(getCharacterDetailsRequested())
-        GETCharacters(postfix)
-            .then(r => {
-                const { data } = r;
 
-                const [{ films }] = data.results;
-                films.forEach((film: string) => { dispatch(getFilmsDetails(film)) })
+        try {
+            const response = await GETCharacters(postfix)
+            const { data } = response;
 
-                const [{ starships }] = data.results;
-                starships.forEach((starship: string) => { dispatch(getStarshipsDetails(starship)) })
+            const [{ films }] = data.results;
 
-                const [{ species }] = data.results;
-                species.forEach((specie: string) => { dispatch(getSpeciesDetails(specie)) })
+            films.forEach((film: string) => { dispatch(getDetails(film, getCharacterFilmsDetailsDone, getCharacterDetailsFailed)) })
 
-                const [{ vehicles }] = data.results;
-                vehicles.forEach((vehicle: string) => { dispatch(getVehiclesDetails(vehicle)) })
+            const [{ starships }] = data.results;
+            starships.forEach((starship: string) => { dispatch(getDetails(starship, getStarshipsDetailsDone, getCharacterDetailsFailed)) })
 
-                dispatch(getCharacterDetailsDone(data))
+            const [{ species }] = data.results;
+            species.forEach((specie: string) => { dispatch(getDetails(specie, getSpeciesDetailsDone, getCharacterDetailsFailed)) })
 
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getCharacterDetailsFailed(errorMsg))
-            })
-    }
-}
+            const [{ vehicles }] = data.results;
+            vehicles.forEach((vehicle: string) => { dispatch(getDetails(vehicle, getVehiclesDetailsDone, getCharacterDetailsFailed)) })
 
-function getFilmsDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getCharacterFilmsDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getCharacterDetailsFailed(errorMsg))
-            })
-    }
-}
-
-function getStarshipsDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getStarshipsDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getCharacterDetailsFailed(errorMsg))
-            })
-    }
-}
-
-function getVehiclesDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getVehiclesDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getCharacterDetailsFailed(errorMsg))
-            })
-    }
-}
-
-function getSpeciesDetails(url: string) {
-    return (dispatch: Dispatch) => {
-        axios.get(url)
-            .then(r => {
-                const data = r.data;
-                dispatch(getSpeciesDetailsDone(data))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getCharacterDetailsFailed(errorMsg))
-            })
+            return dispatch(getCharacterDetailsDone(data))
+        } catch (error) {
+            const { message } = error;
+            return dispatch(getCharacterDetailsFailed(message))
+        }
     }
 }

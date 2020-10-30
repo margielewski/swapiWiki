@@ -30,15 +30,17 @@ export function getStarshipsFailed(error: string): StarshipsActions {
 }
 
 export function getStarships(postfix = '') {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(getStarshipsRequested())
         GETStarships(postfix)
-            .then(r => {
-                const starships = r.data;
-                dispatch(getStarshipsDone(starships))
-            }).catch(err => {
-                const errorMsg = err.message;
-                dispatch(getStarshipsFailed(errorMsg))
-            })
+        try {
+            const response = await GETStarships(postfix)
+            const { data } = response;
+
+            return dispatch(getStarshipsDone(data))
+        } catch (error) {
+            const { message } = error;
+            return dispatch(getStarshipsFailed(message))
+        }
     }
 }
