@@ -1,7 +1,13 @@
-import { IVehiclesResponse } from './../../types/vehicle';
-import { ISpeciesResponse } from './../../types/specie';
-import { IFilmsResponse } from './../../types/film';
+import { IStarship } from './../starships/starships.types';
+
+import { IVehicle, IVehiclesResponse } from './../../types/vehicle';
+
+import { ISpecie, ISpeciesResponse } from './../../types/specie';
+
+import { IFilm, IFilmsResponse } from './../../types/film';
+
 import { IStarshipsResponse } from '../starships/starships.types';
+
 export const GET_CHARACTERS_REQUESTED = 'GET_CHARACTERS_REQUESTED';
 export const GET_CHARACTERS_DONE = 'GET_CHARACTERS_DONE';
 export const GET_CHARACTERS_FAILED = 'GET_CHARACTERS_FAILED';
@@ -37,10 +43,10 @@ export interface ICharacterDetailsState {
     data: ICharacter
     loading: boolean
     error: string
-    films?: any
-    species?: any
-    starships?: any
-    vehicles?: any
+    films: IFilm[]
+    species: ISpecie[]
+    starships: IStarship[]
+    vehicles: IVehicle[]
 }
 
 export interface ICharacter {
@@ -64,7 +70,6 @@ export interface ICharacter {
 
 interface IGetCharactersRequested {
     type: typeof GET_CHARACTERS_REQUESTED
-    payload?: any;
 }
 
 interface IGetCharactersDone {
@@ -79,7 +84,6 @@ interface IGetCharactersFailed {
 
 interface IGetCharacterDetailsRequested {
     type: typeof GET_CHARACTER_DETAILS_REQUESTED
-    payload?: any;
 }
 
 interface IGetCharacterDetailsDone {
@@ -94,22 +98,22 @@ interface IGetCharacterDetailsFailed {
 
 interface IGetCharacterFilmsDetailsDone {
     type: typeof GET_CHARACTER_FILMS_DETAILS_DONE
-    payload: IFilmsResponse
+    payload: IFilm[]
 }
 
 interface IGetCharacterSpeciesDetailsDone {
     type: typeof GET_CHARACTER_SPECIES_DETAILS_DONE
-    payload: ISpeciesResponse
+    payload: ISpecie[]
 }
 
 interface IGetCharacterStarshipsDetailsDone {
     type: typeof GET_CHARACTER_STARSHIPS_DETAILS_DONE
-    payload: IStarshipsResponse
+    payload: IStarship[]
 }
 
 interface IGetCharacterVehiclesDetailsDone {
     type: typeof GET_CHARACTER_VEHICLES_DETAILS_DONE
-    payload: IVehiclesResponse
+    payload: IVehicle[]
 }
 
 export type CharactersActions =

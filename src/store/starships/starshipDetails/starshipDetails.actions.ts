@@ -1,5 +1,5 @@
-import { ICharactersResponse } from './../../characters/characters.types';
-import { IFilmsResponse } from '../../../types/film';
+import { ICharacter, ICharactersResponse } from './../../characters/characters.types';
+import { IFilm, IFilmsResponse } from '../../../types/film';
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
@@ -36,7 +36,7 @@ export function getStarshipDetailsFailed(error: string): StarshipDetailsActions 
     };
 }
 
-export function getStarshipFilmsDetailsDone(data: IFilmsResponse): StarshipDetailsActions {
+export function getStarshipFilmsDetailsDone(data: IFilm[]): StarshipDetailsActions {
     return {
         type: GET_STARSHIP_FILMS_DETAILS_DONE,
         payload: data
@@ -44,7 +44,7 @@ export function getStarshipFilmsDetailsDone(data: IFilmsResponse): StarshipDetai
 }
 
 
-export function getPilotsDetailsDone(data: ICharactersResponse): StarshipDetailsActions {
+export function getPilotsDetailsDone(data: ICharacter[]): StarshipDetailsActions {
     return {
         type: GET_STARSHIP_PILOTS_DETAILS_DONE,
         payload: data

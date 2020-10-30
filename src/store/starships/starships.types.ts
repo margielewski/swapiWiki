@@ -1,5 +1,5 @@
-import { IFilmsResponse } from '../../types/film';
-import { ICharactersResponse } from './../characters/characters.types';
+import { IFilm } from '../../types/film';
+import { ICharacter } from './../characters/characters.types';
 
 export const GET_STARSHIPS_REQUESTED = 'GET_STARSHIPS_REQUESTED';
 export const GET_STARSHIPS_DONE = 'GET_STARSHIPS_DONE';
@@ -38,8 +38,8 @@ export interface IStarshipDetailsState {
     data: IStarship
     loading: boolean
     error: string
-    films?: any
-    pilots?: any
+    films: IFilm[]
+    pilots: ICharacter[]
 }
 
 export interface IStarship {
@@ -67,7 +67,6 @@ export interface IStarship {
 
 interface IGetStarshipsRequested {
     type: typeof GET_STARSHIPS_REQUESTED
-    payload?: any;
 }
 
 interface IGetStarshipsDone {
@@ -82,7 +81,6 @@ interface IGetStarshipsFailed {
 
 interface IGetStarshipDetailsRequested {
     type: typeof GET_STARSHIP_DETAILS_REQUESTED
-    payload?: any;
 }
 
 interface IGetStarshipDetailsDone {
@@ -97,12 +95,12 @@ interface IGetStarshipDetailsFailed {
 
 interface IGetStarshipFilmsDetailsDone {
     type: typeof GET_STARSHIP_FILMS_DETAILS_DONE
-    payload: IFilmsResponse
+    payload: IFilm[]
 }
 
 interface IGetStarshipPilotsDetailsDone {
     type: typeof GET_STARSHIP_PILOTS_DETAILS_DONE
-    payload: ICharactersResponse
+    payload: ICharacter[]
 }
 
 

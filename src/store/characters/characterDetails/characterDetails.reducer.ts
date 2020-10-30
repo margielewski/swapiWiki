@@ -11,6 +11,11 @@ import {
     ICharacter,
 } from '../characters.types';
 
+import { IFilm } from './../../../types/film';
+import { ISpecie } from '../../../types/specie';
+import { IStarship } from '../../starships/starships.types';
+import { IVehicle } from '../../../types/vehicle';
+
 const initialState: ICharacterDetailsState = {
     loading: false,
     data: {} as ICharacter,
@@ -21,8 +26,8 @@ const initialState: ICharacterDetailsState = {
     vehicles: []
 }
 
-export default (state = initialState, { type, payload }: CharacterDetailsActions): ICharacterDetailsState => {
-    switch (type) {
+export default (state = initialState, action: CharacterDetailsActions): ICharacterDetailsState => {
+    switch (action.type) {
         case GET_CHARACTER_DETAILS_REQUESTED:
             return {
                 ...state,
@@ -38,7 +43,7 @@ export default (state = initialState, { type, payload }: CharacterDetailsActions
             return {
                 ...state,
                 loading: false,
-                data: payload.results[0],
+                data: action.payload.results[0],
                 error: ''
             }
 
@@ -46,30 +51,34 @@ export default (state = initialState, { type, payload }: CharacterDetailsActions
             return {
                 loading: false,
                 data: {} as ICharacter,
-                error: payload
+                error: action.payload,
+                films: [],
+                species: [],
+                starships: [],
+                vehicles: []
             }
         case GET_CHARACTER_FILMS_DETAILS_DONE:
             return {
                 ...state,
-                films: [...state.films, payload],
+                films: [...state.films, action.payload] as IFilm[],
                 error: ''
             }
         case GET_CHARACTER_SPECIES_DETAILS_DONE:
             return {
                 ...state,
-                species: [...state.species, payload],
+                species: [...state.species, action.payload] as ISpecie[],
                 error: ''
             }
         case GET_CHARACTER_STARSHIPS_DETAILS_DONE:
             return {
                 ...state,
-                starships: [...state.starships, payload],
+                starships: [...state.starships, action.payload] as IStarship[],
                 error: ''
             }
         case GET_CHARACTER_VEHICLES_DETAILS_DONE:
             return {
                 ...state,
-                vehicles: [...state.vehicles, payload],
+                vehicles: [...state.vehicles, action.payload] as IVehicle[],
                 error: ''
             }
         default:

@@ -1,5 +1,5 @@
-import { ICharacter, ICharactersResponse } from './../characters/characters.types';
-import { IFilm, IFilmsResponse } from './../../types/film';
+import { ICharacter } from './../characters/characters.types';
+import { IFilm } from './../../types/film';
 export const GET_PLANETS_REQUESTED = 'GET_PLANETS_REQUESTED';
 export const GET_PLANETS_DONE = 'GET_PLANETS_DONE';
 export const GET_PLANETS_FAILED = 'GET_PLANETS_FAILED';
@@ -53,7 +53,6 @@ export interface IPlanet {
 
 interface IGetPlanetsRequested {
     type: typeof GET_PLANETS_REQUESTED
-    payload?: any;
 }
 
 interface IGetPlanetsDone {
@@ -68,7 +67,6 @@ interface IGetPlanetsFailed {
 
 interface IGetPlanetDetailsRequested {
     type: typeof GET_PLANET_DETAILS_REQUESTED
-    payload?: any;
 }
 
 interface IGetPlanetDetailsDone {
@@ -83,11 +81,11 @@ interface IGetPlanetDetailsFailed {
 
 interface IGetPlanetFilmsDetailsDone {
     type: typeof GET_PLANET_FILMS_DETAILS_DONE
-    payload: IFilmsResponse
+    payload: IFilm[]
 }
 interface IGetPlanetResidentsDetailsDone {
     type: typeof GET_PLANET_RESIDENTS_DETAILS_DONE
-    payload: ICharactersResponse
+    payload: ICharacter[]
 }
 
 export type PlanetsActions =

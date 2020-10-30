@@ -9,6 +9,9 @@ import {
     IPlanet,
 } from '../planets.types';
 
+import { IFilm } from '../../../types/film';
+import { ICharacter } from '../../characters/characters.types';
+
 const initialState: IPlanetDetailsState = {
     loading: false,
     data: {} as IPlanet,
@@ -17,8 +20,8 @@ const initialState: IPlanetDetailsState = {
     residents: []
 }
 
-export default (state = initialState, { type, payload }: PlanetDetailsActions): IPlanetDetailsState => {
-    switch (type) {
+export default (state = initialState, action: PlanetDetailsActions): IPlanetDetailsState => {
+    switch (action.type) {
         case GET_PLANET_DETAILS_REQUESTED:
             return {
                 ...state,
@@ -31,7 +34,7 @@ export default (state = initialState, { type, payload }: PlanetDetailsActions): 
             return {
                 ...state,
                 loading: false,
-                data: payload.results[0],
+                data: action.payload.results[0],
                 error: ''
             }
 
@@ -39,7 +42,7 @@ export default (state = initialState, { type, payload }: PlanetDetailsActions): 
             return {
                 loading: false,
                 data: {} as IPlanet,
-                error: payload,
+                error: action.payload,
                 films: [],
                 residents: []
             }
@@ -47,14 +50,14 @@ export default (state = initialState, { type, payload }: PlanetDetailsActions): 
             return {
                 ...state,
                 loading: false,
-                films: [...state.films, payload],
+                films: [...state.films, action.payload] as IFilm[],
                 error: ''
             }
         case GET_PLANET_RESIDENTS_DETAILS_DONE:
             return {
                 ...state,
                 loading: false,
-                residents: [...state.residents, payload],
+                residents: [...state.residents, action.payload] as ICharacter[],
                 error: ''
             }
         default:

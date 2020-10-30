@@ -14,8 +14,8 @@ const initialState: IPlanetsState = {
     previous: ''
 }
 
-export default (state = initialState, { type, payload }: PlanetsActions): IPlanetsState => {
-    switch (type) {
+export default (state = initialState, action: PlanetsActions): IPlanetsState => {
+    switch (action.type) {
         case GET_PLANETS_REQUESTED:
             return {
                 ...state,
@@ -28,9 +28,9 @@ export default (state = initialState, { type, payload }: PlanetsActions): IPlane
             return {
                 ...state,
                 loading: false,
-                data: payload.results,
-                next: payload.next,
-                previous: payload.previous,
+                data: action.payload.results,
+                next: action.payload.next,
+                previous: action.payload.previous,
                 error: ''
             }
 
@@ -40,7 +40,7 @@ export default (state = initialState, { type, payload }: PlanetsActions): IPlane
                 data: [],
                 next: '',
                 previous: '',
-                error: payload
+                error: action.payload
             }
 
 

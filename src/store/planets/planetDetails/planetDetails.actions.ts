@@ -1,7 +1,8 @@
-import { ICharactersResponse } from './../../characters/characters.types';
-import { IFilmsResponse } from './../../../types/film';
-import { Dispatch } from 'redux';
 import axios from 'axios';
+import { Dispatch } from 'redux';
+
+import { ICharacter } from './../../characters/characters.types';
+import { IFilm } from './../../../types/film';
 
 import {
     GET_PLANET_DETAILS_REQUESTED,
@@ -35,14 +36,14 @@ export function getPlanetDetailsFailed(error: string): PlanetDetailsActions {
     };
 }
 
-export function getPlanetFilmsDetailsDone(data: IFilmsResponse): PlanetDetailsActions {
+export function getPlanetFilmsDetailsDone(data: IFilm[]): PlanetDetailsActions {
     return {
         type: GET_PLANET_FILMS_DETAILS_DONE,
         payload: data
     };
 }
 
-export function getResidentsDetailsDone(data: ICharactersResponse): PlanetDetailsActions {
+export function getResidentsDetailsDone(data: ICharacter[]): PlanetDetailsActions {
     return {
         type: GET_PLANET_RESIDENTS_DETAILS_DONE,
         payload: data
@@ -77,6 +78,7 @@ function getFilmsDetails(url: string) {
         axios.get(url)
             .then(r => {
                 const data = r.data;
+                console.log(data)
                 dispatch(getPlanetFilmsDetailsDone(data))
             }).catch(err => {
                 const errorMsg = err.message;

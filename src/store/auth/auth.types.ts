@@ -20,7 +20,6 @@ interface ILogin {
 
 interface ILogout {
     type: typeof LOG_OUT
-    payload?: any;
 }
 
 interface ILoginSuccess {

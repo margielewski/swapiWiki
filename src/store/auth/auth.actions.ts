@@ -10,7 +10,6 @@ export function login(credentials: ICredentials): AuthActions {
 export function logout(): AuthActions {
     return {
         type: LOG_OUT,
-        payload: ''
     };
 }
 

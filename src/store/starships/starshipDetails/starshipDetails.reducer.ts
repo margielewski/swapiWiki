@@ -9,17 +9,19 @@ import {
     IStarship,
 } from '../starships.types';
 
+import { ICharacter } from './../../characters/characters.types';
+import { IFilm } from './../../../types/film';
+
 const initialState: IStarshipDetailsState = {
     loading: false,
     data: {} as IStarship,
     error: '',
     films: [],
     pilots: [],
-
 }
 
-export default (state = initialState, { type, payload }: StarshipDetailsActions): IStarshipDetailsState => {
-    switch (type) {
+export default (state = initialState, action: StarshipDetailsActions): IStarshipDetailsState => {
+    switch (action.type) {
         case GET_STARSHIP_DETAILS_REQUESTED:
             return {
                 ...state,
@@ -32,7 +34,7 @@ export default (state = initialState, { type, payload }: StarshipDetailsActions)
             return {
                 ...state,
                 loading: false,
-                data: payload.results[0],
+                data: action.payload.results[0],
                 error: ''
             }
 
@@ -40,18 +42,20 @@ export default (state = initialState, { type, payload }: StarshipDetailsActions)
             return {
                 loading: false,
                 data: {} as IStarship,
-                error: payload
+                error: action.payload,
+                films: [],
+                pilots: [],
             }
         case GET_STARSHIP_FILMS_DETAILS_DONE:
             return {
                 ...state,
-                films: [...state.films, payload],
+                films: [...state.films, action.payload] as IFilm[],
                 error: ''
             }
         case GET_STARSHIP_PILOTS_DETAILS_DONE:
             return {
                 ...state,
-                pilots: [...state.pilots, payload],
+                pilots: [...state.pilots, action.payload] as ICharacter[],
                 error: ''
             }
 

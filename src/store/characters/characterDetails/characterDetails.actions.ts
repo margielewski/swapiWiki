@@ -1,8 +1,5 @@
-import { IVehiclesResponse } from './../../../types/vehicle';
-import { ISpeciesResponse } from './../../../types/specie';
-import { IFilmsResponse } from './../../../types/film';
-import { Dispatch } from 'redux';
 import axios from 'axios';
+import { Dispatch } from 'redux';
 
 import {
     GET_CHARACTER_DETAILS_REQUESTED,
@@ -17,7 +14,11 @@ import {
 } from '../characters.types';
 
 import { GETCharacters } from '../../api/characters'
-import { IStarshipsResponse } from '../../starships/starships.types';
+
+import { IStarship } from '../../starships/starships.types';
+import { IVehicle } from './../../../types/vehicle';
+import { ISpecie } from './../../../types/specie';
+import { IFilm } from './../../../types/film';
 
 export function getCharacterDetailsRequested(): CharacterDetailsActions {
     return {
@@ -39,26 +40,26 @@ export function getCharacterDetailsFailed(error: string): CharacterDetailsAction
     };
 }
 
-export function getCharacterFilmsDetailsDone(data: IFilmsResponse): CharacterDetailsActions {
+export function getCharacterFilmsDetailsDone(data: IFilm[]): CharacterDetailsActions {
     return {
         type: GET_CHARACTER_FILMS_DETAILS_DONE,
         payload: data
     };
 }
 
-export function getSpeciesDetailsDone(data: ISpeciesResponse): CharacterDetailsActions {
+export function getSpeciesDetailsDone(data: ISpecie[]): CharacterDetailsActions {
     return {
         type: GET_CHARACTER_SPECIES_DETAILS_DONE,
         payload: data
     };
 }
-export function getStarshipsDetailsDone(data: IStarshipsResponse): CharacterDetailsActions {
+export function getStarshipsDetailsDone(data: IStarship[]): CharacterDetailsActions {
     return {
         type: GET_CHARACTER_STARSHIPS_DETAILS_DONE,
         payload: data
     };
 }
-export function getVehiclesDetailsDone(data: IVehiclesResponse): CharacterDetailsActions {
+export function getVehiclesDetailsDone(data: IVehicle[]): CharacterDetailsActions {
     return {
         type: GET_CHARACTER_VEHICLES_DETAILS_DONE,
         payload: data
