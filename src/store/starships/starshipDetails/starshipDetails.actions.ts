@@ -1,5 +1,3 @@
-import { ICharacter, ICharactersResponse } from './../../characters/characters.types';
-import { IFilm, IFilmsResponse } from '../../../types/film';
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
@@ -15,6 +13,9 @@ import {
 } from '../starships.types';
 
 import { GETStarships } from '../../api/starships'
+
+import { ICharacter } from './../../characters/characters.types';
+import { IFilm } from '../../../types/film';
 
 export function getStarshipDetailsRequested(): StarshipDetailsActions {
     return {

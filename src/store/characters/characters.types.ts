@@ -1,12 +1,10 @@
 import { IStarship } from './../starships/starships.types';
 
-import { IVehicle, IVehiclesResponse } from './../../types/vehicle';
+import { IVehicle } from './../../types/vehicle';
 
-import { ISpecie, ISpeciesResponse } from './../../types/specie';
+import { ISpecie } from './../../types/specie';
 
-import { IFilm, IFilmsResponse } from './../../types/film';
-
-import { IStarshipsResponse } from '../starships/starships.types';
+import { IFilm } from './../../types/film';
 
 export const GET_CHARACTERS_REQUESTED = 'GET_CHARACTERS_REQUESTED';
 export const GET_CHARACTERS_DONE = 'GET_CHARACTERS_DONE';
