@@ -66,28 +66,24 @@ export function getVehiclesDetailsDone(data: IVehiclesResponse): CharacterDetail
 }
 
 export function getCharacterDetails(postfix = '') {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(getCharacterDetailsRequested())
         GETCharacters(postfix)
             .then(r => {
-                const data = r.data;
-                if (data.results && data.results.length !== 1) data.results = [];
-                if (data.results[0] && data.results[0].films.length) {
-                    const films = data.results[0].films;
-                    films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
-                }
-                if (data.results[0] && data.results[0].starships.length) {
-                    const starships = data.results[0].starships;
-                    starships.forEach((starship: string) => { dispatch<any>(getStarshipsDetails(starship)) })
-                }
-                if (data.results[0] && data.results[0].species.length) {
-                    const species = data.results[0].species;
-                    species.forEach((specie: string) => { dispatch<any>(getSpeciesDetails(specie)) })
-                }
-                if (data.results[0] && data.results[0].vehicles.length) {
-                    const vehicles = data.results[0].vehicles;
-                    vehicles.forEach((vehicle: string) => { dispatch<any>(getVehiclesDetails(vehicle)) })
-                }
+                const { data } = r;
+
+                const [{ films }] = data.results;
+                films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+
+                const [{ starships }] = data.results;
+                starships.forEach((starship: string) => { dispatch<any>(getStarshipsDetails(starship)) })
+
+                const [{ species }] = data.results;
+                species.forEach((specie: string) => { dispatch<any>(getSpeciesDetails(specie)) })
+
+                const [{ vehicles }] = data.results;
+                vehicles.forEach((vehicle: string) => { dispatch<any>(getVehiclesDetails(vehicle)) })
+
                 dispatch(getCharacterDetailsDone(data))
 
             }).catch(err => {

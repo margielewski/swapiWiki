@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 
 import CardsGrid from '../CardsGrid/CardsGrid';
@@ -10,7 +10,7 @@ import { IStarshipsState } from '../../store/starships/starships.types';
 interface IGridWithPagination {
     data: IPlanetsState | ICharactersState | IStarshipsState
     icon: string
-    action: any
+    action: (postfix: string) => void
     routeTo: string
 }
 
@@ -19,18 +19,20 @@ export default function GridWithPagination({ icon, action, data, routeTo }: IGri
     const [currentPage, setCurrentPage] = useState(1)
     const [searchString, setSearchString] = useState('')
 
-    useEffect(() => {
-        getData(1)
-    }, [searchString])
-
-    const getData = (pageNumber: number) => {
+    const getData = useCallback((pageNumber) => {
         let postfix = ''
         if (searchString && pageNumber !== 1) postfix = `?search=${searchString}&page=${pageNumber}`
         else if (searchString && pageNumber === 1) postfix = `?search=${searchString}`
         else postfix = `?page=${pageNumber}`
 
         dispatch(action(postfix))
-    }
+    }, [dispatch, action, searchString])
+
+    useEffect(() => {
+        getData(1)
+    }, [getData])
+
+
 
     const prevPage = () => {
         if (!data.previous) return;

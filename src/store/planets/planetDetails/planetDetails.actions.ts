@@ -54,16 +54,15 @@ export function getPlanetDetails(postfix = '') {
         dispatch(getPlanetDetailsRequested())
         GETPlanets(postfix)
             .then(r => {
-                const data = r.data;
-                if (data.results && data.results.length !== 1) data.results = [];
-                if (data.results[0] && data.results[0].films.length) {
-                    const films = data.results[0].films;
-                    films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
-                }
-                if (data.results[0] && data.results[0].residents.length) {
-                    const residents = data.results[0].residents;
-                    residents.forEach((resident: string) => { dispatch<any>(getResidentsDetails(resident)) })
-                }
+                const { data } = r;
+
+
+                const [{ films }] = data.results;
+                films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+
+                const [{ residents }] = data.results;
+                residents.forEach((resident: string) => { dispatch<any>(getResidentsDetails(resident)) })
+
                 dispatch(getPlanetDetailsDone(data))
 
             }).catch(err => {

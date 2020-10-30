@@ -56,17 +56,14 @@ export function getStarshipDetails(postfix = '') {
     return (dispatch: Dispatch) => {
         dispatch(getStarshipDetailsRequested())
         GETStarships(postfix)
-            .then((r) => {
-                const data = r.data;
-                if (data.results && data.results.length !== 1) data.results = [];
-                if (data.results[0] && data.results[0].films.length) {
-                    const films = data.results[0].films;
-                    films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
-                }
-                if (data.results[0] && data.results[0].pilots.length) {
-                    const pilots = data.results[0].pilots;
-                    pilots.forEach((pilot: string) => { dispatch<any>(getPilotsDetails(pilot)) })
-                }
+            .then(r => {
+                const { data } = r;
+
+                const [{ films }] = data.results;
+                films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+
+                const [{ pilots }] = data.results;
+                pilots.forEach((pilot: string) => { dispatch<any>(getPilotsDetails(pilot)) })
 
                 dispatch(getStarshipDetailsDone(data))
 
