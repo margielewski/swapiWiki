@@ -6,6 +6,7 @@ import Card from '../Card/Card';
 import { IPlanetsState } from '../../store/planets/planets.types';
 import { ICharactersState } from '../../store/characters/characters.types';
 import { IStarshipsState } from '../../store/starships/starships.types';
+import usePagination from '../../hooks/usePagination';
 
 interface IGridWithPagination {
     data: IPlanetsState | ICharactersState | IStarshipsState
@@ -16,7 +17,6 @@ interface IGridWithPagination {
 
 export default function GridWithPagination({ icon, action, data, routeTo }: IGridWithPagination) {
     const dispatch = useDispatch()
-    const [currentPage, setCurrentPage] = useState(1)
     const [searchString, setSearchString] = useState('')
 
     const getData = useCallback((pageNumber) => {
@@ -28,29 +28,11 @@ export default function GridWithPagination({ icon, action, data, routeTo }: IGri
         dispatch(action(postfix))
     }, [dispatch, action, searchString])
 
+    const { currentPage, prevPage, nextPage, setCurrentPage } = usePagination(data, getData)
+
     useEffect(() => {
         getData(1)
     }, [getData])
-
-
-
-    const prevPage = () => {
-        if (!data.previous) return;
-        setCurrentPage(prevVal => {
-            const current = --prevVal
-            getData(current)
-            return current;
-        })
-    }
-
-    const nextPage = () => {
-        if (!data.next) return;
-        setCurrentPage(prevVal => {
-            const current = ++prevVal
-            getData(current)
-            return current;
-        })
-    }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setCurrentPage(1)
