@@ -78,6 +78,8 @@ export function getCharacterDetails(postfix = '') {
             const response = await GETCharacters(postfix)
             const { data } = response;
 
+            if (!data.results.length) return dispatch(getCharacterDetailsFailed('not found'))
+
             const [{ films }] = data.results;
 
             films.forEach((film: string) => { dispatch(getDetails(film, getCharacterFilmsDetailsDone, getCharacterDetailsFailed)) })

@@ -65,6 +65,8 @@ export function getStarshipDetails(postfix = '') {
             const response = await GETStarships(postfix)
             const { data } = response;
 
+            if (!data.results.length) return dispatch(getStarshipDetailsFailed('not found'))
+
             const [{ films }] = data.results;
             films.forEach((film: string) => { dispatch(getDetails(film, getStarshipFilmsDetailsDone, getStarshipDetailsFailed)) })
 

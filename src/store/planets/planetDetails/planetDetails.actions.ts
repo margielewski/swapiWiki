@@ -61,7 +61,10 @@ export function getPlanetDetails(postfix = '') {
             const response = await GETPlanets(postfix)
             const { data } = response;
 
+            if (!data.results.length) return dispatch(getPlanetDetailsFailed('not found'))
+
             const [{ films }] = data.results;
+            console.log(films)
             films.forEach((film: string) => { dispatch(getDetails(film, getPlanetFilmsDetailsDone, getPlanetDetailsFailed)) })
 
             const [{ residents }] = data.results;
@@ -70,7 +73,6 @@ export function getPlanetDetails(postfix = '') {
             return dispatch(getPlanetDetailsDone(data))
         } catch (error) {
             const { message } = error;
-
             return dispatch(getPlanetDetailsFailed(message))
         }
 
