@@ -1,5 +1,6 @@
-import { Dispatch } from 'redux';
 import axios from 'axios';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action, Dispatch } from 'redux';
 
 import {
     GET_STARSHIP_DETAILS_REQUESTED,
@@ -12,9 +13,12 @@ import {
     IStarshipsResponse,
 } from '../starships.types';
 
+import { RootStore } from '../../store';
+
 import { GETStarships } from '../../api/starships'
 
 import { ICharacter } from './../../characters/characters.types';
+
 import { IFilm } from '../../../types/film';
 
 export function getStarshipDetailsRequested(): StarshipDetailsActions {
@@ -54,17 +58,17 @@ export function getPilotsDetailsDone(data: ICharacter[]): StarshipDetailsActions
 
 
 export function getStarshipDetails(postfix = '') {
-    return (dispatch: Dispatch) => {
+    return (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         dispatch(getStarshipDetailsRequested())
         GETStarships(postfix)
             .then(r => {
                 const { data } = r;
 
                 const [{ films }] = data.results;
-                films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+                films.forEach((film: string) => { dispatch(getFilmsDetails(film)) })
 
                 const [{ pilots }] = data.results;
-                pilots.forEach((pilot: string) => { dispatch<any>(getPilotsDetails(pilot)) })
+                pilots.forEach((pilot: string) => { dispatch(getPilotsDetails(pilot)) })
 
                 dispatch(getStarshipDetailsDone(data))
 

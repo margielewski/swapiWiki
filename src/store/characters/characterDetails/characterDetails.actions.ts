@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import {
     GET_CHARACTER_DETAILS_REQUESTED,
@@ -13,12 +14,15 @@ import {
     ICharactersResponse,
 } from '../characters.types';
 
+import { RootStore } from '../../store';
+
 import { GETCharacters } from '../../api/characters'
 
 import { IStarship } from '../../starships/starships.types';
 import { IVehicle } from './../../../types/vehicle';
 import { ISpecie } from './../../../types/specie';
 import { IFilm } from './../../../types/film';
+
 
 export function getCharacterDetailsRequested(): CharacterDetailsActions {
     return {
@@ -67,23 +71,23 @@ export function getVehiclesDetailsDone(data: IVehicle[]): CharacterDetailsAction
 }
 
 export function getCharacterDetails(postfix = '') {
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         dispatch(getCharacterDetailsRequested())
         GETCharacters(postfix)
             .then(r => {
                 const { data } = r;
 
                 const [{ films }] = data.results;
-                films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+                films.forEach((film: string) => { dispatch(getFilmsDetails(film)) })
 
                 const [{ starships }] = data.results;
-                starships.forEach((starship: string) => { dispatch<any>(getStarshipsDetails(starship)) })
+                starships.forEach((starship: string) => { dispatch(getStarshipsDetails(starship)) })
 
                 const [{ species }] = data.results;
-                species.forEach((specie: string) => { dispatch<any>(getSpeciesDetails(specie)) })
+                species.forEach((specie: string) => { dispatch(getSpeciesDetails(specie)) })
 
                 const [{ vehicles }] = data.results;
-                vehicles.forEach((vehicle: string) => { dispatch<any>(getVehiclesDetails(vehicle)) })
+                vehicles.forEach((vehicle: string) => { dispatch(getVehiclesDetails(vehicle)) })
 
                 dispatch(getCharacterDetailsDone(data))
 

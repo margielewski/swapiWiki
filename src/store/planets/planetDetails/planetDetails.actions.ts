@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
-
-import { ICharacter } from './../../characters/characters.types';
-import { IFilm } from './../../../types/film';
+import { Action, Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import {
     GET_PLANET_DETAILS_REQUESTED,
@@ -13,6 +11,11 @@ import {
     PlanetDetailsActions,
     IPlanetsResponse,
 } from '../planets.types';
+
+import { RootStore } from '../../store';
+
+import { ICharacter } from './../../characters/characters.types';
+import { IFilm } from './../../../types/film';
 
 import { GETPlanets } from '../../api/planets'
 
@@ -51,7 +54,7 @@ export function getResidentsDetailsDone(data: ICharacter[]): PlanetDetailsAction
 }
 
 export function getPlanetDetails(postfix = '') {
-    return (dispatch: Dispatch) => {
+    return (dispatch: ThunkDispatch<RootStore, void, Action>) => {
         dispatch(getPlanetDetailsRequested())
         GETPlanets(postfix)
             .then(r => {
@@ -59,10 +62,10 @@ export function getPlanetDetails(postfix = '') {
 
 
                 const [{ films }] = data.results;
-                films.forEach((film: string) => { dispatch<any>(getFilmsDetails(film)) })
+                films.forEach((film: string) => { dispatch(getFilmsDetails(film)) })
 
                 const [{ residents }] = data.results;
-                residents.forEach((resident: string) => { dispatch<any>(getResidentsDetails(resident)) })
+                residents.forEach((resident: string) => { dispatch(getResidentsDetails(resident)) })
 
                 dispatch(getPlanetDetailsDone(data))
 
